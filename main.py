@@ -1,6 +1,7 @@
 import re
 import asyncio
 import os
+from dotenv import load_dotenv  # Import dotenv
 from telegram import (
     Update, ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 )
@@ -9,6 +10,9 @@ from telegram.ext import (
     MessageHandler, filters, ContextTypes
 )
 
+# Load environment variables from .env file
+load_dotenv()
+
 # Define states for the conversation
 (
     FULL_NAME, CONTACT_INFO, TYPE_FACADE,
@@ -16,8 +20,9 @@ from telegram.ext import (
     DELIVERY_TIME, GIFT_SELECTION, ADDITIONAL_INFO,
 ) = range(9)
 
-# Telegram chat ID where the result will be sent
-TARGET_CHAT_ID = -1002309340415
+# Get environment variables
+TOKEN = os.getenv("TELEGRAM_TOKEN")  # Bot token from .env
+TARGET_CHAT_ID = int(os.getenv("TARGET_CHAT_ID"))  # Chat ID from .env
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Start the questionnaire with the first question."""
@@ -27,6 +32,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         reply_markup=ReplyKeyboardMarkup(keyboard, one_time_keyboard=True),
     )
     return TYPE_FACADE
+
 
 async def type_facade(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Store facade type and ask for countertop type."""
@@ -197,9 +203,7 @@ async def contact_info(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
 
 def main():
     """Run the bot."""
-
-    application = ApplicationBuilder().token("7118802327:AAF7NkSmHomdEWSBNL_D7SE3E3x996d-DSM").build()
-
+    application = ApplicationBuilder().token(TOKEN).build()  # Use the token from .env
 
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
@@ -218,7 +222,6 @@ def main():
         },
         fallbacks=[],
     )
-
 
     application.add_handler(conv_handler)
     application.run_polling()

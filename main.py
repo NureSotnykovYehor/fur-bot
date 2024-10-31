@@ -17,7 +17,7 @@ from telegram.ext import (
 ) = range(9)
 
 # Telegram chat ID where the result will be sent
-TARGET_CHAT_ID = -4513254687
+TARGET_CHAT_ID = -1002309340415
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Start the questionnaire with the first question."""
@@ -198,7 +198,7 @@ async def contact_info(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
 def main():
     """Run the bot."""
 
-    application = ApplicationBuilder().token("7774079908:AAFK0vb5AjTrwwFDoqFmQk6GPByo-HUeklw").build()
+    application = ApplicationBuilder().token("7118802327:AAF7NkSmHomdEWSBNL_D7SE3E3x996d-DSM").build()
 
 
     conv_handler = ConversationHandler(

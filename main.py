@@ -197,7 +197,7 @@ async def contact_info(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
 
 def main():
     """Run the bot."""
-    TOKEN = os.getenv("7774079908:AAFK0vb5AjTrwwFDoqFmQk6GPByo-HUeklw")
+
     application = ApplicationBuilder().token("7774079908:AAFK0vb5AjTrwwFDoqFmQk6GPByo-HUeklw").build()
 
 
